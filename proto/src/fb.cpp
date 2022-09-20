@@ -19,21 +19,14 @@ fb open_fb(const char* fbdev){
         MAP_SHARED, fb_fd,
         0
     );
-    fb _fb;
-    _fb.width=fb_width;
-    _fb.height=fb_height;
-    _fb.bpp=fb_bpp;
-    _fb.size=fb_size;
-    _fb.fd=fb_fd;
-    _fb.data=(int*)fbdata;
-    return _fb;
+    return fb(fb_width, fb_height, fb_bpp, fb_size, fb_fd, (int*)fbdata);
 }
 
-void clearscreen_fb(struct fb framebuffer){
+void clearscreen_fb(fb framebuffer){
     memset(framebuffer.data, 0, (size_t)framebuffer.size);
 }
 
-void unload_fb(struct fb framebuffer){
+void unload_fb(fb framebuffer){
     munmap(framebuffer.data, framebuffer.size);
     close(framebuffer.fd);
 }

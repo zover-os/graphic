@@ -8,13 +8,8 @@ int main(){
     clearscreen_fb(framebuffer);
     for (int y=0;y<framebuffer.width;y++){
         for (int x=0;x<framebuffer.height;x++){
-            struct pos position;
-            position.x=x;
-            position.y=y;
-            struct pixel pix;
-            pix.b=x/(y+1)*x*y%256;
-            pix.r=y/(x+1)*x*y%256;
-            pix.g=(x+y)%256;
+            pos position=pos(x, y);
+            pixel pix=pixel(y/(x+1)*x*y%256, (x+y)%256, x/(y+1)*x*y%256);
             draw(position, pix, framebuffer);
         }
     }

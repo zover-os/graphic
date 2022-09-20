@@ -3,18 +3,29 @@
 
 #include <fb.hpp>
 
-struct pos
+class pos
 {
-    int x;
-    int y;
+    public:
+        int x;
+        int y;
+        pos(int x, int y){
+            this->x=x;
+            this->y=y;
+        };
 };
-struct pixel
+class pixel
 {
-    int b;
-    int g;
-    int r;
+    public:
+        int r;
+        int g;
+        int b;
+        pixel(int r, int g, int b){
+            this->r=r;
+            this->g=g;
+            this->b=b;
+        }
 };
 
-void draw(struct pos, struct pixel, struct fb);
+void draw(pos, pixel, fb);
 
 #endif
