@@ -1,12 +1,21 @@
-#ifndef ZOVER__GRAPHIC__PROTO__
-#define ZOVER__GRAPHIC__PROTO__
+#ifndef ZOVER__GRAPHIC__PROTO__FB__
+#define ZOVER__GRAPHIC__PROTO__FB__
 
 #include <linux/fb.h>
 
-#include <std.h>
+#include <std.hpp>
 
-tuple<int, int, int, int, int, int*> open_fb(const char* fbdev);
-void clearscreen_fb(void* fbdata, int fb_size);
-void unload_fb(int* fbdata, int fbsize, int fb_fd);
+struct fb{
+    int width;
+    int height;
+    int bpp;
+    int size;
+    int fd;
+    int* data;
+};
+
+fb open_fb(const char* fbdev);
+void clearscreen_fb(struct fb);
+void unload_fb(struct fb);
 
 #endif

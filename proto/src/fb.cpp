@@ -1,6 +1,6 @@
-#include <fb.h>
+#include <fb.hpp>
 
-tuple<int, int, int, int, int, int*> open_fb(const char* fbdev){
+fb open_fb(const char* fbdev){
     int fb_fd = open(fbdev, O_RDWR);
     if (fb_fd<=0){
         cout << "Error: can't open framebuffer";
@@ -19,14 +19,21 @@ tuple<int, int, int, int, int, int*> open_fb(const char* fbdev){
         MAP_SHARED, fb_fd,
         0
     );
-    return {fb_width, fb_height, fb_bpp, fb_size, fb_fd,(int*)fbdata};
+    fb _fb;
+    _fb.width=fb_width;
+    _fb.height=fb_height;
+    _fb.bpp=fb_bpp;
+    _fb.size=fb_size;
+    _fb.fd=fb_fd;
+    _fb.data=(int*)fbdata;
+    return _fb;
 }
 
-void clearscreen_fb(void* fbdata, int fb_size){
-    memset(fbdata, 0, (size_t)fb_size);
+void clearscreen_fb(struct fb framebuffer){
+    memset(framebuffer.data, 0, (size_t)framebuffer.size);
 }
 
-void unload_fb(int* fbdata, int fb_size, int fb_fd){
-    munmap(fbdata, fb_size);
-    close(fb_fd);
+void unload_fb(struct fb framebuffer){
+    munmap(framebuffer.data, framebuffer.size);
+    close(framebuffer.fd);
 }
