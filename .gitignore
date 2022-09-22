@@ -1,2 +1,3 @@
 .vscode
 proto/dist
+src/*.o

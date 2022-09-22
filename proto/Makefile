@@ -1,10 +1,12 @@
-source=$(wildcard src/*.cpp)
+objects=$(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 
-all: mkdist dist/rad
+all: dist/rad
 
-mkdist:
-	rm -rf dist || true
+dist:
 	mkdir dist
 
-dist/rad: $(source)
-	g++ $(source) -I include -o dist/rad
+%.o: %.cpp
+	g++ -c $< -I include -o $@
+
+dist/rad: dist $(objects)
+	g++ $(objects) -o dist/rad

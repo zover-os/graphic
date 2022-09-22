@@ -5,11 +5,11 @@
 int main(){
     const char* fbdev = "/dev/fb0";
     fb framebuffer = open_fb(fbdev);
-    clearscreen_fb(framebuffer);
-    for (int y=0;y<framebuffer.width;y++){
-        for (int x=0;x<framebuffer.height;x++){
-            pos position=pos(x, y);
-            pixel pix=pixel(y/(x+1)*x*y%256, (x+y)%256, x/(y+1)*x*y%256);
+    //clearscreen_fb(framebuffer);
+    for (int y=1;y<framebuffer.vinfo.yres;y++){
+        for (int x=1;x<framebuffer.finfo.line_length;x++){
+            pos position=pos(x,y);
+            pixel pix=pixel(240, 240, 125);
             draw(position, pix, framebuffer);
         }
     }

@@ -7,17 +7,15 @@
 
 class fb{
     public:
-        int width;
-        int height;
-        int bpp;
+        struct fb_fix_screeninfo finfo;
+        struct fb_var_screeninfo vinfo;
         int size;
         int fd;
         int* data;
-        fb(int width, int height, int bpp, int size, int fd, int* data){
-            this->width=width;
-            this->height=height;
-            this->bpp=bpp;
-            this->size=size;
+        fb(fb_fix_screeninfo finfo, fb_var_screeninfo vinfo, int fb_size, int fd, int* data){
+            this->finfo=finfo;
+            this->vinfo=vinfo;
+            this->size=fb_size;
             this->fd=fd;
             this->data=data;
         }
