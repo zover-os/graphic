@@ -10,7 +10,7 @@ fb open_fb(const char* fbdev){
     struct fb_fix_screeninfo finfo;
     ioctl(fb_fd, FBIOGET_VSCREENINFO, &vinfo);
     ioctl(fb_fd, FBIOGET_FSCREENINFO, &finfo);
-    int fb_size = vinfo.yres_virtual * finfo.line_length;
+    int fb_size = vinfo.yres * finfo.line_length;
     void* fbdata = mmap(0, fb_size,
         PROT_READ | PROT_WRITE,
         MAP_SHARED, fb_fd,
